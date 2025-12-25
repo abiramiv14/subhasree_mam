@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Gift Instructions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f0, #ffb6c1); /* Light pink gradient */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff0000; /* Red heading */
+            text-shadow: 2px 2px 5px #ffd700; /* Gold shadow */
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #4b0082; /* Dark purple for contrast on pink */
+        }
+
+        button {
+            background-color: #ff0000; /* Red button */
+            color: #ffffff;
+            border: 2px solid #ffd700; /* Gold border */
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 2px 2px 8px #ffd700;
+        }
+
+        button:hover {
+            background-color: #b22222; /* Darker red */
+            box-shadow: 2px 2px 12px #fff;
+        }
+
+        #hint {
+            display: none;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #1420ccd7; /* Green hint */
+            /* text-shadow: 1px 1px 3px #000; */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #hint.show {
+            display: block;
+            opacity: 1;
+        }
+
+        a {
+            color: #0b6e6e;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎄 Congratulations! 🎄</h1>
+    <p>Santa is waiting for you to give a gift.</p>
+    <p>We'll give you a 16-digit verification code by providing hints.</p>
+    <p>After collecting all the keys, you can enter the code on this site.</p>
+    
+    <button onclick="showHint()">Click to Unlock a Hint</button>
+    
+    <p id="hint">
+        💡 Hint: Where you go when you hydrated...<br><br>
+        After getting the first code, enter the number here: 
+        <a href="sample.html">Open</a>
+    </p>
+
+    <script>
+        function showHint() {
+            const hint = document.getElementById('hint');
+            hint.classList.add('show'); // Adds fade-in effect
+        }
+    </script>
+</body>
+</html>
