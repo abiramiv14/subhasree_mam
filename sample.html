@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa Verification</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 40px;
+        background: #ffe6f0;
+    }
+    input, button {
+        padding: 10px;
+        margin: 8px;
+        font-size: 1em;
+    }
+    .hint {
+        color: green;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    .error {
+        color: red;
+    }
+    video {
+        width: 320px;
+        margin-top: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎄 Step-by-Step Verification 🎄</h1>
+
+<!-- STEP 1 -->
+<div id="step1">
+    <input id="input1" placeholder="Enter first part">
+    <button onclick="verify(1)">Submit</button>
+    <div id="msg1"></div>
+    <video id="video1" class="hidden" controls src="chu.mp4"></video>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="hidden">
+    <input id="input2" placeholder="Enter second part">
+    <button onclick="verify(2)">Submit</button>
+    <div id="msg2"></div>
+    <video id="video2" class="hidden" controls src="weight.mp4"></video>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="hidden">
+    <input id="input3" placeholder="Enter third part">
+    <button onclick="verify(3)">Submit</button>
+    <div id="msg3"></div>
+    <video id="video3" class="hidden" controls src="anniyan.mp4"></video>
+</div>
+
+<!-- STEP 4 -->
+<div id="step4" class="hidden">
+    <input id="input4" placeholder="Enter fourth part">
+    <button onclick="verify(4)">Submit</button>
+    <div id="msg4"></div>
+</div>
+
+<!-- FINAL STEP -->
+<div id="finalStep" class="hidden">
+    <h2>🔐 Final Verification</h2>
+    <input id="finalInput" placeholder="Enter all numbers together">
+    <button onclick="finalVerify()">Verify</button>
+    <div id="finalMsg"></div>
+    <video id="finalVideo" class="hidden" controls src="pandiyamm.mp4"></video>
+</div>
+
+<script>
+const answers = ["19", "1123", "251225", "0443"];
+const messages = [
+    "✅ Correct! Go and say this to Yeshodha Mam.",
+    "✅ Correct! Go and say this to Parthi Sir.",
+    "✅ Correct! Go and say this to Ranjith Bro.",
+    "✅ All small verifications completed!"
+];
+const finalAnswer = "1911232512250443";
+
+/* Load progress */
+window.onload = () => {
+    let progress = Number(localStorage.getItem("progress")) || 0;
+
+    for (let i = 1; i <= progress; i++) {
+        document.getElementById("step" + i).querySelector("input").value = answers[i-1];
+        document.getElementById("step" + i).querySelector("input").readOnly = true;
+        document.getElementById("step" + i).querySelector("button").style.display = "none";
+        document.getElementById("msg" + i).innerHTML = `<div class="hint">${messages[i-1]}</div>`;
+
+        if (document.getElementById("video" + i)) {
+            document.getElementById("video" + i).classList.remove("hidden");
+        }
+
+        if (i < 4) document.getElementById("step" + (i+1)).classList.remove("hidden");
+    }
+
+    if (progress === 4) {
+        document.getElementById("finalStep").classList.remove("hidden");
+    }
+};
+
+function verify(step) {
+    const input = document.getElementById("input" + step);
+    const msg = document.getElementById("msg" + step);
+    const video = document.getElementById("video" + step);
+
+    if (input.value === answers[step-1]) {
+        input.readOnly = true;
+        input.nextElementSibling.style.display = "none";
+
+        msg.innerHTML = `<div class="hint">${messages[step-1]}</div>`;
+        if (video) video.classList.remove("hidden");
+
+        localStorage.setItem("progress", step);
+
+        if (step < 4) {
+            document.getElementById("step" + (step + 1)).classList.remove("hidden");
+        } else {
+            document.getElementById("finalStep").classList.remove("hidden");
+        }
+    } else {
+        msg.innerHTML = `<div class="error">❌ Wrong, try again</div>`;
+    }
+}
+
+function finalVerify() {
+    const finalInput = document.getElementById("finalInput").value;
+    const finalMsg = document.getElementById("finalMsg");
+
+    if (finalInput === finalAnswer) {
+        finalMsg.innerHTML = `
+            <div class="hint">
+                🎉 Correct! <br>
+                👉 Go and see your <b>breaktime companion</b> and say 💬
+            </div>
+        `;
+        document.getElementById("finalVideo").classList.remove("hidden");
+    } else {
+        finalMsg.innerHTML = `<div class="error">❌ Incorrect final code</div>`;
+    }
+}
+</script>
+
+</body>
+</html>
